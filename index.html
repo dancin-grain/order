@@ -156,6 +156,11 @@
                   <p>No. of Floral Blend</p>
                   <input type="number" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 4)" name="No. of Floral Blend" min="0" value="0">
               </div>
+
+              <div class="whiteRoundedBox"> 
+                <p>No. of Chrysanthemum</p>
+                <input type="number" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 5)" name="No. of Chrysanthemum" min="0" value="0">
+            </div>
       
               <div class="whiteRoundedBox"> 
                   <p>Shipment</p>
@@ -170,7 +175,7 @@
                   <label>Self Pick-up (Admiralty MRT, Bus Stop)</label><br>
       
                   <input type="radio" name="Shipment" value="Dancin Grain Delivery" onchange="calculatePricePart2(1)">
-                  <label>Dancin Grain Delivery</label><br>
+                  <label>Dancin Grain Delivery ($8 Delivery charge per location, free delivery for purchases of at least $75)</label><br>
               </div>
               <div class="whiteRoundedBox"> 
                   <p>Comment (optional, for sending as gift)</p>
@@ -215,8 +220,7 @@
 
                 <div class="whiteRoundedBox"> 
                     <p>Postal Code</p>
-                    <p class="smaller">**A delivery date(Tues or Thurs) will be generated for you based on your location and order date**</p>
-                    <p class="smaller" style="margin-bottom:23px;">Please order from Monday to Friday and Saturday to Sunday for next week delivery and delivery for the week after the next, respectively</p>
+                    <p class="smaller" style="margin-bottom:23px;">**A delivery date(Tues or Thurs) will be generated for you based on your location and order date**</p>
                     <input type="text" class="section3InputText" name="Postal Code" oninput="getAddress(this)">
                     
                 </div>
@@ -240,6 +244,11 @@
               <!-- <input type="hidden" name="entry.1020438313"> -->
             
               <div class="whiteRoundedBox"> 
+                <p id="orderSummary"></p>
+                <p class="totalPrice" style="margin-bottom: 0px;"></p>
+              </div>
+
+              <div class="whiteRoundedBox"> 
                   <p>(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID</p>
                   <p>𝐏𝐥𝐞𝐚𝐬𝐞 𝐬𝐞𝐧𝐝 𝐭𝐡𝐞 𝐩𝐚𝐲𝐦𝐞𝐧𝐭 𝐭𝐨 𝟗𝟔𝟏𝟕𝟏𝟏𝟏𝟗 (𝐏𝐚𝐲𝐋𝐚𝐡!/𝐏𝐚𝐲𝐍𝐨𝐰) 𝐚𝐧𝐝 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧 𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃" 𝐡𝐞𝐫𝐞.</p>
                   <img  src="https://drive.google.com/uc?export=download&id=1LIzSp6inArSpWziktjTNXpSwvyr0tk9b">
@@ -247,10 +256,7 @@
                   <input type="file" name="(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID" id="myFile">
               </div>
               
-              <div class="whiteRoundedBox"> 
-                <p id="orderSummary"></p>
-                <p class="totalPrice" style="margin-bottom: 0px;"></p>
-              </div>
+              
               <b><p id="processing"></p></b>
               <button id="sect4Back" type="button">Back</button>
                
@@ -308,7 +314,7 @@
 
 
       document.getElementById("myFile").addEventListener('change', function(){
-         var ext = this.value.match(/\.[^\.]+/)[0]; // \. is for escaping and interpreting as .
+         var ext = this.value.match(/\.[^\.]+$/)[0]; // \. is for escaping and interpreting as .
 
          switch(ext){
            case ".png":
@@ -351,6 +357,7 @@
     var passionFruitNo = 0;
     var roseLycheeNo = 0;
     var floralBlendNo = 0;   
+    var chrysanthemumNo = 0; 
     var shipping = 0;
     function calculatePricePart1(v, n){
 
@@ -371,11 +378,14 @@
         case 4:
           floralBlendNo = parseInt(v);   
           break;
+        case 5:
+          chrysanthemumNo = parseInt(v);   
+          break;
       }
-      var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo;
+      var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
       var totalPrice = totalNo * 6.9 - Math.floor(totalNo/4) * 2.6 + shipping - (totalNo >= 12 && shipping == 8 ? 8 : 0);
       
-      $('#orderSummary').html("<b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li>" + "<li>Passion Fruit x " + passionFruitNo + "</li>" + "<li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li></ul>")
+      $('#orderSummary').html("<b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul>")
       $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
 
     }
@@ -386,7 +396,7 @@
       }else{
         shipping = 8;
       }
-       var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo;
+       var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
       var totalPrice = totalNo * 6.9 - Math.floor(totalNo/4) * 2.6 + shipping - (totalNo >= 12 && shipping == 8 ? 8 : 0);
       // document.getElementById("totalPrice").innerHTML =  "Total Price: $" + totalPrice.toFixed(2);
        $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
@@ -455,7 +465,7 @@
         section1InputTextValueNoOfBottle = $('.section1InputText.noOfBottle').filter(function () {
         return this.value >= 0 && this.value % 1 == 0;
         });
-        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != 5 || document.getElementById("email").value.indexOf("@") == -1 || (berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo) == 0) {
+        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != 6 || document.getElementById("email").value.indexOf("@") == -1 || (berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo) == 0) {
             alert('Please fill out all required fields appropriately.');
             return;
         }
@@ -585,7 +595,7 @@
                 const fr = new FileReader();
                 fr.readAsArrayBuffer(file);
                 fr.onload = (f) => {
-                  const url = "https://script.google.com/macros/s/AKfycbxyLU1sBeyIXyCA-ZFQ0yZCgYOAE5Csp0toFydXzxW2FVaCun3xsUwqBcKBVt5c8s21BA/exec"; 
+                  const url = "https://script.google.com/macros/s/AKfycbzE6k7nsNDqZlQXIuVqQMSP3YkNdZp3lCjDyWmfOy7WA-h7ixQmWTpB97jtGlsqNebRDg/exec"; 
                   const qs = new URLSearchParams({
                     filename: file.name,
                     mimeType: file.type,
@@ -600,6 +610,7 @@
                                         'No. of Passion Fruit': $("input[name='No. of Passion Fruit']").val(), 
                                         'No. of Rose Lychee': $("input[name='No. of Rose Lychee']").val(), 
                                         'No. of Floral Blend': $("input[name='No. of Floral Blend']").val(),
+                                        'No. of Chrysanthemum': $("input[name='No. of Chrysanthemum']").val(),
                                         'Shipment': $("input[name='Shipment']:checked").val(), 
                                         'Comment (optional, for sending as gift)': $("textarea[name='Comment (optional, for sending as gift)']").val(), 
                                         'Pick a date': $("input[name='Pick a date']:checked").val(), 
