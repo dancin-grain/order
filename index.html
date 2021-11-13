@@ -70,11 +70,11 @@
     .minus{
       font-weight:bolder;
     }
-	    label{
-	        display: inline-block;
-   		 margin-bottom: 5px;
-	    }
 
+    label{
+      display: inline-block;
+      margin-bottom: 5px;
+    }
     button{
         background-color: white;
         border: 1px solid #dadce0;
@@ -193,6 +193,9 @@
                 <p>No. of Chrysanthemum</p>
                 <input type="number" id="chrysanthemum" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 5)" name="No. of Chrysanthemum" min="0" value="0"><p class="minus" onclick="minus($('#chrysanthemum'), 5)">-</p><p class="plus" onclick="plus($('#chrysanthemum'), 5)">+</p> 
             </div>
+            <div class="whiteRoundedBox" style="display:none;"> 
+              <p>Pre-sets</p>
+          </div>
       
               <div class="whiteRoundedBox"> 
                   <p>Shipment</p>
@@ -216,7 +219,7 @@
               <p class="totalPrice"></p>
       
               <button id="sect1Next" type="button">Next</button>
-		    <p></p>
+              <p></p>
             </div>
             <div id="section2" style="display: none;">
               <div class="whiteRoundedBox"> 
@@ -533,7 +536,7 @@
         section1InputTextValueNoOfBottle = $('.section1InputText.noOfBottle').filter(function () {
         return this.value >= 0 && this.value % 1 == 0;
         });
-        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != 6 || document.getElementById("email").value.indexOf("@") == -1 || (berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo) == 0) {
+        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != 6 || document.getElementById("email").value.indexOf("@") == -1 || (berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo) == 0) {
             alert('Please fill out all required fields appropriately.');
             return;
         }
