@@ -88,6 +88,11 @@
         margin-right: 12px;
         cursor: pointer;
     }
+
+    /* #addASet{
+      color: rgb(156, 117, 0);
+      background-color: #fef9ee;
+    } */
     
     .smaller {
       color: #606060;
@@ -162,7 +167,7 @@
               <div class="whiteRoundedBox">  
                   <p>Phone Number (sg)</p>
                   <!-- added the class noOfBottle to check whether user input positive number of phone number -->
-                  <input type="number" class="section1InputText noOfBottle" name="Phone Number (sg)"> 
+                  <input type="number" class="section1InputText" name="Phone Number (sg)"> 
               </div>
               <div class="whiteRoundedBox">  
                   <p>Email Address</p>
@@ -171,30 +176,78 @@
       
               <div class="whiteRoundedBox"> 
                   <p>No. of Berry Nice</p>
-                  <input type="number" id="berryNice" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 1)" name="No. of Berry Nice" min="0" value="0"><p class="minus" onclick="minus($('#berryNice'), 1)">-</p><p class="plus" onclick="plus($('#berryNice'), 1)">+</p> 
+                  <input type="number" id="berryNice" class="noOfBottle" oninput="calculatePricePart1(this.value, 1)" name="No. of Berry Nice" min="0" value="0"><p class="minus" onclick="minus($('#berryNice'), 1)">-</p><p class="plus" onclick="plus($('#berryNice'), 1)">+</p> 
               </div>
           
               <div class="whiteRoundedBox"> 
                   <p>No. of Passion Fruit</p>
-                  <input type="number" id="passionFruit" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 2)" name="No. of Passion Fruit" min="0" value="0"><p class="minus" onclick="minus($('#passionFruit'), 2)">-</p><p class="plus" onclick="plus($('#passionFruit'), 2)">+</p> 
+                  <input type="number" id="passionFruit" class="noOfBottle" oninput="calculatePricePart1(this.value, 2)" name="No. of Passion Fruit" min="0" value="0"><p class="minus" onclick="minus($('#passionFruit'), 2)">-</p><p class="plus" onclick="plus($('#passionFruit'), 2)">+</p> 
               </div>
       
               <div class="whiteRoundedBox"> 
                   <p>No. of Rose Lychee</p>
-                  <input type="number" id="roseLychee" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 3)" name="No. of Rose Lychee" min="0" value="0"><p class="minus" onclick="minus($('#roseLychee'), 3)">-</p><p class="plus" onclick="plus($('#roseLychee'), 3)">+</p> 
+                  <input type="number" id="roseLychee" class="noOfBottle" oninput="calculatePricePart1(this.value, 3)" name="No. of Rose Lychee" min="0" value="0"><p class="minus" onclick="minus($('#roseLychee'), 3)">-</p><p class="plus" onclick="plus($('#roseLychee'), 3)">+</p> 
               </div>
       
               <div class="whiteRoundedBox"> 
                   <p>No. of Floral Blend</p>
-                  <input type="number" id="floralBlend" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 4)" name="No. of Floral Blend" min="0" value="0"><p class="minus" onclick="minus($('#floralBlend'), 4)">-</p><p class="plus" onclick="plus($('#floralBlend'), 4)">+</p> 
+                  <input type="number" id="floralBlend" class="noOfBottle" oninput="calculatePricePart1(this.value, 4)" name="No. of Floral Blend" min="0" value="0"><p class="minus" onclick="minus($('#floralBlend'), 4)">-</p><p class="plus" onclick="plus($('#floralBlend'), 4)">+</p> 
               </div>
 
               <div class="whiteRoundedBox"> 
                 <p>No. of Chrysanthemum</p>
-                <input type="number" id="chrysanthemum" class="section1InputText noOfBottle" oninput="calculatePricePart1(this.value, 5)" name="No. of Chrysanthemum" min="0" value="0"><p class="minus" onclick="minus($('#chrysanthemum'), 5)">-</p><p class="plus" onclick="plus($('#chrysanthemum'), 5)">+</p> 
+                <input type="number" id="chrysanthemum" class="noOfBottle" oninput="calculatePricePart1(this.value, 5)" name="No. of Chrysanthemum" min="0" value="0"><p class="minus" onclick="minus($('#chrysanthemum'), 5)">-</p><p class="plus" onclick="plus($('#chrysanthemum'), 5)">+</p> 
             </div>
-            <div class="whiteRoundedBox" style="display:none;"> 
-              <p>Pre-sets</p>
+            <input type="hidden" name="Presets">
+            <input type="hidden"  name="Total Bottles">
+            <input type="hidden"  name="Total Price">
+            <div class="whiteRoundedBox" id="preset"> 
+              <!-- id and function name canot be the same, otherwise u cant call addSet -->
+              <p style="display: inline-block;"><b>Pre-sets&nbsp;&nbsp;&nbsp;</b></p> <button id="addASet" type="button" onclick="addSet()">Add Set</button> 
+              <br/> <br/>
+              <div id="set1">
+                <p>Set 1</p>
+                <select name="set1Part1" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set1Part2" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf" selected="selected">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set1Part3" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl" selected="selected">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set1Part4" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb" selected="selected">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <p>No. of Set 1</p>
+                <input type="number" id="set1No" class="noOfBottle" oninput="calculatePricePart3(this.value, 'set1')" name="No. of Set1" min="0" value="0"><p class="minus" onclick="minusSet($('#set1No'), 'set1')">-</p><p class="plus" onclick="plusSet($('#set1No'), 'set1')">+</p>
+                <br/>
+                <br/>
+                <button id="deleteSet1" type="button" onclick="deleteSet('set1')">Delete Set</button>
+                <br/>
+                <br/>
+                <br/>
+            </div>
           </div>
       
               <div class="whiteRoundedBox"> 
@@ -395,19 +448,20 @@
     var floralBlendNo = 0;   
     var chrysanthemumNo = 0; 
     var shipping = 0;
+    var separateAndPresetsArray = [];
+    var presetTextArray = [];
+    var totalNoPart2 = 0;
     function calculatePricePart1(v, n){
-
-      if(v=="" || v % 1 != 0 || v < 0){
-        console.log(v=="");
-      console.log(Number.isInteger(v));
-      console.log(v < 0);
-        $('.totalPrice').html("");
-        return;
+      if(v ==""){
+          v = 0;
       }
 
-      console.log(v=="");
-      console.log(Number.isInteger(v));
-      console.log(v < 0);
+      if(v % 1 != 0 || v < 0){
+        $('.totalPrice').html('');
+        return false;
+      }
+
+     
       
 
       switch(n){
@@ -428,25 +482,198 @@
           break;
       }
       var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
-      var totalPrice = totalNo * 6.9 - Math.floor(totalNo/4) * 2.6 + shipping - (totalNo >= 12 && shipping == 8 ? 8 : 0);
-      
-      $('#orderSummary').html("<b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul>")
+      totalNoPart2 = 0;
+      separateAndPresetsArray[0] = totalNo;
+      for(i = 0;i<separateAndPresetsArray.length;i++){
+        if(separateAndPresetsArray[i] !== undefined){
+          totalNoPart2 += separateAndPresetsArray[i];
+        }
+        
+      }
+      var totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      $("input[name='Total Price']").val(totalPrice);
+      if($("#separate").length){
+        $("#separate").remove();
+      }
+      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul></div>")
       $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
 
     }
 
     function calculatePricePart2(isDeliver){
+      totalNoPart2 = 0;
       if(!isDeliver){
         shipping = 0;
       }else{
         shipping = 8;
       }
        var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
-      var totalPrice = totalNo * 6.9 - Math.floor(totalNo/4) * 2.6 + shipping - (totalNo >= 12 && shipping == 8 ? 8 : 0);
+       separateAndPresetsArray[0] = totalNo;
+        for(i = 0;i<separateAndPresetsArray.length;i++){
+          if(separateAndPresetsArray[i] !== undefined){
+            totalNoPart2 += separateAndPresetsArray[i];
+          }
+        
+      }
+
+      $("input[name='Total Bottles']").val(totalNoPart2);
+      var totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      $("input[name='Total Price']").val(totalPrice);
       // document.getElementById("totalPrice").innerHTML =  "Total Price: $" + totalPrice.toFixed(2);
+      if($("#separate").length){
+        $("#separate").remove();
+      }
+      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul></div>")
        $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
     }
 
+    function calculatePricePart3(v, set){
+      
+      if(v == ""){
+        v = 0;
+      }
+      if(v == 0){
+        separateAndPresetsArray[set.substring(3, set.length)] = 0;
+        presetTextArray[set.substring(3, set.length)] = '';
+        $("#" + set + "OrderSummary").remove();
+        calculatePricePart2(shipping == 0 ? 0 : 1);
+        return;
+      }
+      if(v % 1 != 0 || v < 0){
+        $('.totalPrice').html('');
+        return;
+      }
+      separateAndPresetsArray[set.substring(3, set.length)] = 4 * v;
+      calculatePricePart2(shipping == 0 ? 0 : 1);
+      presetTextArray[set.substring(3, set.length)] = '<div id="' + set +'OrderSummary">Set ' + set.substring(3, set.length) + ' x ' + v + '<br/><br/>';
+      for(i = 1;i<5;i++){
+        var setNoPartI = $('select[name="' + set + 'Part' + i + '"]').val();
+        
+        switch(setNoPartI){
+          case 'bn':
+            presetTextArray[set.substring(3, set.length)] += 'Berry Nice <br/>';
+            break;
+          case 'pf':
+            presetTextArray[set.substring(3, set.length)] += 'Passion Fruit <br/>';
+            break;
+          case 'rl':
+            presetTextArray[set.substring(3, set.length)] += 'Rose Lychee <br/>';
+            break;
+          case 'fb':
+            presetTextArray[set.substring(3, set.length)] += 'Floral Blend <br/>';
+            break;
+          case 'c':
+            presetTextArray[set.substring(3, set.length)] += 'Chrysanthemum <br/>';
+            break;
+        }
+        
+      }
+      presetTextArray[set.substring(3, set.length)] += '<br/><br/></div>';
+
+      var presetTexts = "";
+      for(i=1;i<presetTextArray.length;i++){
+        console.log("#set" + i + "OrderSummary");
+        if(presetTextArray[i] !== undefined){
+
+          // refresh all the set texts
+          if($("#set" + i + "OrderSummary").length){
+            $("#set" + i + "OrderSummary").remove();
+          }
+          $('#orderSummary').append(presetTextArray[i]);
+          presetTexts += presetTextArray[i];
+        }
+      }
+      presetTexts = presetTexts.replace(/<br\/>/g, "\n");
+      presetTexts = presetTexts.replace(/<\/div>/g, "");
+      presetTexts = presetTexts.replace(/<div id="set\d+OrderSummary">/g, "");
+      $("input[name='Presets']").val(presetTexts);
+      
+
+    }
+
+
+    var setCounter = 1;
+
+   
+
+    function deleteSet(set){
+      separateAndPresetsArray[set.substring(3, set.length)] = 0;
+      $('#' + set).remove();
+      presetTextArray[set.substring(3, set.length)] = '';
+      $('#' + set + 'OrderSummary').remove();
+      calculatePricePart2(shipping == 0 ? 0 : 1);
+    }
+    function addSet(){
+      setCounter += 1;
+      $("#preset").append(`<div id="set` + setCounter + `">
+                <p>Set ` + setCounter + `</p>
+                <select name="set` + setCounter + `Part1" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set` + setCounter + `Part2" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf" selected="selected">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set` + setCounter + `Part3" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl" selected="selected">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <select name="set` + setCounter + `Part4" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb" selected="selected">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                </select>
+                <br/>
+                <p>No. of Set ` + setCounter + `</p>
+                <input type="number" id="set` + setCounter + `No" class="noOfBottle" oninput="calculatePricePart3(this.value, 'set` + setCounter + `')" name="No. of Set` + setCounter + `" min="0" value="0"><p class="minus" onclick="minusSet($('#set` + setCounter + `No'), 'set` + setCounter + `')">-</p><p class="plus" onclick="plusSet($('#set` + setCounter + `No'), 'set` + setCounter + `')">+</p>
+                <br/>
+                <br/>
+                <button id="deleteSet` + setCounter + `" type="button" onclick="deleteSet('set` + setCounter + `')">Delete Set</button>
+                <br/>
+                <br/>
+                <br/>
+            </div>`);
+    }
+
+
+    function minusSet(v, set){
+        if(v.val()=="" || v.val() % 1 != 0 || v.val() <= 0){
+        v.val(0);
+        calculatePricePart3("0", set); // need to do this because 0 == "" is true
+        return;
+        }
+        v.val(v.val()-1);
+
+        calculatePricePart3(v.val(), set);
+        
+    }
+
+    function plusSet(v, set){
+      if(v.val()=="" || v.val() % 1 != 0 || v.val() < 0){
+        v.val(1);
+        calculatePricePart3(1, set);
+        return;
+      }
+      v.val(parseInt(v.val())+1);
+      calculatePricePart3(v.val(), set);
+
+
+    }
 
     function minus(v, n){
       if(v.val()=="" || v.val() % 1 != 0 || v.val() <= 0){
@@ -524,19 +751,35 @@
 
 
      var section1InputTextValueReqlength = $('.section1InputText').length;
+     
       var section3InputTextValueReqlength = $('.section3InputText').length;
       var sect2Or3;
       var section1InputTextValue;
       var section1InputTextValueNoOfBottle;
+      var section1InputTextValueNoOfBottleReqlength = 0;
       $("#sect1Next").click(function(){
+        section1InputTextValueNoOfBottleReqlength = $('.noOfBottle').length;
         section1InputTextValue = $('.section1InputText').filter(function () {
         return this.value != '';
         });
 
-        section1InputTextValueNoOfBottle = $('.section1InputText.noOfBottle').filter(function () {
-        return this.value >= 0 && this.value % 1 == 0;
+        section1InputTextValueNoOfBottle = $('.noOfBottle').filter(function () {
+        return (this.value >= 0 && this.value % 1 == 0) || '';
         });
-        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != 6 || document.getElementById("email").value.indexOf("@") == -1 || (berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo) == 0) {
+
+        /*
+        check if shipment is selected,
+        name, email and phone number have been filled,
+        number of each drink and preset filled is either a whole number or not filled,
+        at least 1 drink is bought
+        */
+
+         console.log($("input[name='Shipment']:checked").length == 0);
+         console.log(section1InputTextValue.length != section1InputTextValueReqlength);
+         console.log(section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength);
+         console.log(document.getElementById("email").value.indexOf("@") == -1 );
+         console.log(totalNoPart2 == 0);
+        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength || document.getElementById("email").value.indexOf("@") == -1 || totalNoPart2 == 0) {
             alert('Please fill out all required fields appropriately.');
             return;
         }
@@ -666,7 +909,7 @@
                 const fr = new FileReader();
                 fr.readAsArrayBuffer(file);
                 fr.onload = (f) => {
-                  const url = "https://script.google.com/macros/s/AKfycbzE6k7nsNDqZlQXIuVqQMSP3YkNdZp3lCjDyWmfOy7WA-h7ixQmWTpB97jtGlsqNebRDg/exec"; 
+                  const url = "https://script.google.com/macros/s/AKfycbwA11fBwcja6vOmDFnAMj3c0e2ZWJQV959GR2aAguaWwPoiwCsN_tpff7Kvj6qMkBSrlw/exec"; 
                   const qs = new URLSearchParams({
                     filename: file.name,
                     mimeType: file.type,
@@ -682,6 +925,9 @@
                                         'No. of Rose Lychee': $("input[name='No. of Rose Lychee']").val(), 
                                         'No. of Floral Blend': $("input[name='No. of Floral Blend']").val(),
                                         'No. of Chrysanthemum': $("input[name='No. of Chrysanthemum']").val(),
+                                        'Presets': $("input[name='Presets']").val(), 
+                                        'Total Bottles': $("input[name='Total Bottles']").val(), 
+                                        'Total Price': $("input[name='Total Price']").val(), 
                                         'Shipment': $("input[name='Shipment']:checked").val(), 
                                         'Comment (optional, for sending as gift)': $("textarea[name='Comment (optional, for sending as gift)']").val(), 
                                         'Pick a date': $("input[name='Pick a date']:checked").val(), 
@@ -689,7 +935,7 @@
                                         'Postal Code': $("input[name='Postal Code']").val(), 
                                         'Address': $("input[name='Address']").val(), 
                                         'Unit Number': $("input[name='Unit Number']").val(),
-                                        'Delivery Date': $("#deliveryDate").text().substring(40, 50) })
+                                        'Delivery Date': $("#deliveryDate").text().substring(40, $("#deliveryDate").text().length - 15) })
                   })
                     .then((res) => {alert('Thank you for your order, We have sent you an email.');
                     location.reload();})
