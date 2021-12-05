@@ -206,7 +206,7 @@
               <p style="display: inline-block;"><b>Pre-sets&nbsp;&nbsp;&nbsp;</b></p> <button id="addASet" type="button" onclick="addSet()">Add Set</button> 
               <br/> <br/>
               <div id="set1">
-                <p>Set 1</p>
+                <p>Set A</p>
                 <select name="set1Part1" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
                   <option value="bn">Berry Nice</option>
                   <option value="pf">Passion Fruit</option>
@@ -239,7 +239,7 @@
                   <option value="c">Chrysanthemum</option>
                 </select>
                 <br/>
-                <p>No. of Set 1</p>
+                <p>No. of Set A</p>
                 <input type="number" id="set1No" class="noOfBottle" oninput="calculatePricePart3(this.value, 'set1')" name="No. of Set1" min="0" value="0"><p class="minus" onclick="minusSet($('#set1No'), 'set1')">-</p><p class="plus" onclick="plusSet($('#set1No'), 'set1')">+</p>
                 <br/>
                 <br/>
@@ -545,7 +545,20 @@
       }
       separateAndPresetsArray[set.substring(3, set.length)] = 4 * v;
       calculatePricePart2(shipping == 0 ? 0 : 1);
-      presetTextArray[set.substring(3, set.length)] = '<div id="' + set +'OrderSummary">Set ' + set.substring(3, set.length) + ' x ' + v + '<br/><br/>';
+      var boughtSetAlphabet = 'A'; // can be any character
+      
+      
+
+      for(i=1; i<=set.substring(3, set.length);i++){
+        if(i % 27 == 0){
+          boughtSetAlphabet += 'A';
+        }
+      }
+
+      
+
+
+      presetTextArray[set.substring(3, set.length)] = '<div id="' + set +'OrderSummary">Set ' + boughtSetAlphabet.replace(/./g, String.fromCharCode(64 + ((set.substring(3, set.length) - 1) % 26) + 1))  + ' x ' + v + '<br/><br/>';
       for(i = 1;i<5;i++){
         var setNoPartI = $('select[name="' + set + 'Part' + i + '"]').val();
         
@@ -593,6 +606,8 @@
 
 
     var setCounter = 1;
+    var setCounterV2 = 1;
+    var setAlphabet = 'A';
 
    
 
@@ -604,9 +619,14 @@
       calculatePricePart2(shipping == 0 ? 0 : 1);
     }
     function addSet(){
-      setCounter += 1;
-      $("#preset").append(`<div id="set` + setCounter + `">
-                <p>Set ` + setCounter + `</p>
+      if(setCounter % 26 == 0){
+        setAlphabet += 'A';
+        setCounterV2 = 0;
+      }
+      setCounterV2 += 1;
+      setCounter += 1; // I have a setCounterV2 to reset it back to 0 to use it as char code for regex, setCounter cannot go back to 0, there might be 2 sets with the same id and it will become a bug when both set no values changes when the user only edit 1 of them
+      $("#preset").append(`<div id="set` +  setCounter + `">
+                <p>Set ` + setAlphabet.replace(/./g, String.fromCharCode(64 + setCounterV2)) + `</p>
                 <select name="set` + setCounter + `Part1" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
                   <option value="bn">Berry Nice</option>
                   <option value="pf">Passion Fruit</option>
@@ -639,7 +659,7 @@
                   <option value="c">Chrysanthemum</option>
                 </select>
                 <br/>
-                <p>No. of Set ` + setCounter + `</p>
+                <p>No. of Set ` + setAlphabet.replace(/./g, String.fromCharCode(64 + setCounterV2)) + `</p>
                 <input type="number" id="set` + setCounter + `No" class="noOfBottle" oninput="calculatePricePart3(this.value, 'set` + setCounter + `')" name="No. of Set` + setCounter + `" min="0" value="0"><p class="minus" onclick="minusSet($('#set` + setCounter + `No'), 'set` + setCounter + `')">-</p><p class="plus" onclick="plusSet($('#set` + setCounter + `No'), 'set` + setCounter + `')">+</p>
                 <br/>
                 <br/>
@@ -757,6 +777,9 @@
       var section1InputTextValue;
       var section1InputTextValueNoOfBottle;
       var section1InputTextValueNoOfBottleReqlength = 0;
+
+
+
       $("#sect1Next").click(function(){
         section1InputTextValueNoOfBottleReqlength = $('.noOfBottle').length;
         section1InputTextValue = $('.section1InputText').filter(function () {
@@ -897,6 +920,11 @@
               const form = document.forms['google-sheet'];
               form.addEventListener("submit", (e) => {
                 e.preventDefault();
+               
+
+                if($("#section4").is(":hidden")){
+                  return;
+                }
                 $('#submitBtn').prop('disabled', true);
                 if(form['(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID'].value == ''){
                   alert('𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧 𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃"')
