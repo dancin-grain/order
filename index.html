@@ -528,15 +528,32 @@
     }
 
     function calculatePricePart3(v, set){
-      
+      var presetTexts = "";
       if(v == ""){
         v = 0;
       }
+
+      // if a ceratin set value is 0, then there will be 0 certain set of 4, the corresponding preset text will be empty
       if(v == 0){
         separateAndPresetsArray[set.substring(3, set.length)] = 0;
         presetTextArray[set.substring(3, set.length)] = '';
         $("#" + set + "OrderSummary").remove();
         calculatePricePart2(shipping == 0 ? 0 : 1);
+
+
+        for(i=1;i<presetTextArray.length;i++){
+        console.log("#set" + i + "OrderSummary");
+        if(presetTextArray[i] !== undefined){
+
+          presetTexts += presetTextArray[i];
+        }
+      }
+      presetTexts = presetTexts.replace(/<br\/>/g, "\n");
+      presetTexts = presetTexts.replace(/<\/div>/g, "");
+      presetTexts = presetTexts.replace(/<div id="set\d+OrderSummary">/g, "");
+      $("input[name='Presets']").val(presetTexts);
+
+
         return;
       }
       if(v % 1 != 0 || v < 0){
@@ -583,7 +600,7 @@
       }
       presetTextArray[set.substring(3, set.length)] += '<br/><br/></div>';
 
-      var presetTexts = "";
+     
       for(i=1;i<presetTextArray.length;i++){
         console.log("#set" + i + "OrderSummary");
         if(presetTextArray[i] !== undefined){
