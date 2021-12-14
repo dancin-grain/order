@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Document</title>
     
     <style>
@@ -28,6 +28,8 @@
         width:800px;
         margin:0 auto;
     }
+
+   
 
     #darkOrange{
         
@@ -71,8 +73,12 @@
       font-weight:bolder;
     }
 
-    label{
+    /* label{
       display: inline-block;
+      margin-bottom: 5px;
+    } */
+
+    section{
       margin-bottom: 5px;
     }
     button{
@@ -141,6 +147,27 @@
                 border-radius: 5px;
                 background-color: rgb(246, 227, 171);
             }
+
+
+  @media screen and (max-width: 900px){
+        body{
+          width:100%;
+          
+      }
+
+      #intro {
+          
+          height: auto;
+      }
+
+      textarea {
+        width: calc(100% - 30px);
+      }
+
+      img{
+        width: 100%;
+      }
+    }
     </style>
 
 </head>
@@ -252,19 +279,23 @@
       
               <div class="whiteRoundedBox"> 
                   <p>Shipment</p>
-                  <input type="radio" name="Shipment" value="Self Pick-up (Marsilling MRT, NTUC FairPrice)" onchange="calculatePricePart2(0)">
-                  <label>Self Pick-up (Marsilling MRT, NTUC FairPrice)</label><br>
-                  
-      
-                  <input type="radio" name="Shipment" value="Self Pick-up (Woodlands MRT, QQ Rice store)" onchange="calculatePricePart2(0)">
-                  <label>Self Pick-up (Woodlands MRT, QQ Rice store)</label><br>
-      
-                  <input type="radio" name="Shipment" value="Self Pick-up (Admiralty MRT, Bus Stop)" onchange="calculatePricePart2(0)">
-                  <label>Self Pick-up (Admiralty MRT, Bus Stop)</label><br>
-      
-                  <input type="radio" name="Shipment" value="Dancin Grain Delivery" onchange="calculatePricePart2(1)">
-                  <label>Dancin Grain Delivery ($8 Delivery charge per location, free delivery for purchases of at least $75)</label><br>
-              </div>
+                    <section>
+                    <input type="radio" name="Shipment" value="Self Pick-up (Marsilling MRT, NTUC FairPrice)" onchange="calculatePricePart2(0)">
+                    <label>Self Pick-up (Marsilling MRT, NTUC FairPrice)</label><br>
+                  </section>
+                  <section>
+                    <input type="radio" name="Shipment" value="Self Pick-up (Woodlands MRT, QQ Rice store)" onchange="calculatePricePart2(0)">
+                    <label>Self Pick-up (Woodlands MRT, QQ Rice store)</label><br>
+                  </section>
+                  <section>
+                    <input type="radio" name="Shipment" value="Self Pick-up (Admiralty MRT, Bus Stop)" onchange="calculatePricePart2(0)">
+                    <label>Self Pick-up (Admiralty MRT, Bus Stop)</label><br>
+                  </section>
+                  <section>
+                    <input type="radio" name="Shipment" value="Dancin Grain Delivery" onchange="calculatePricePart2(1)">
+                    <label>Dancin Grain Delivery ($8 Delivery charge per location, free delivery for purchases of at least $75)</label><br>
+                  </section>
+                </div>
               <div class="whiteRoundedBox"> 
                 <p>Send as gift?</p>
                 <input type="radio" name="sendAsGift" value="yes" onchange="sendAsGiftHideOrUnhide(1)">
@@ -300,28 +331,37 @@
             <div id="section2" style="display: none;">
               <div class="whiteRoundedBox"> 
                   <p>Pick a date</p>
+                  <section>
                   <input type="radio" name="Pick a date" value="">
                   <label class="pickADate"></label><br>
-      
+                </section>
+                <section>
                   <input type="radio" name="Pick a date" value="">
                   <label class="pickADate"></label><br>
-      
+                </section>
+                <section>
                   <input type="radio" name="Pick a date" value="">
                   <label class="pickADate"></label><br>
+                </section>
               </div>
               <div class="whiteRoundedBox"> 
                   <p>Pick a time</p>
+                  <section>
                   <input type="radio" name="Pick a time" value="7pm">
                   <label>7pm</label><br>
-      
+                </section>
+                <section>
                   <input type="radio" name="Pick a time" value="8pm">
                   <label>8pm</label><br>
-      
+                </section>
+                <section>
                   <input type="radio" name="Pick a time" value="9pm">
                   <label>9pm</label><br>
-      
+                </section>
+                <section>
                   <input type="radio" name="Pick a time" value="10pm">
                   <label>10pm</label><br>
+                </section>
               </div>
               <p></p>
               <button id="sect2Back" type="button">Back</button>
