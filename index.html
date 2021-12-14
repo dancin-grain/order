@@ -266,8 +266,31 @@
                   <label>Dancin Grain Delivery ($8 Delivery charge per location, free delivery for purchases of at least $75)</label><br>
               </div>
               <div class="whiteRoundedBox"> 
-                  <p>Comment (optional, for sending as gift)</p>
-                  <textarea id="comment" name="Comment (optional, for sending as gift)" rows="5" cols="60" maxlength="200" placeholder="Congratulations and best wishes on your grand opening!&#10;&#10;Love, Mary"></textarea>
+                <p>Send as gift?</p>
+                <input type="radio" name="sendAsGift" value="yes" onchange="sendAsGiftHideOrUnhide(1)">
+                <label>Yes</label><br>
+                
+    
+                <input type="radio" name="sendAsGift" value="No" onchange="sendAsGiftHideOrUnhide(0)" checked>
+                <label>No</label><br>
+            </div>
+            <div id="allGiftInputs">
+              <div class="whiteRoundedBox">  
+                <p>Recipient's name</p>
+              
+                <input type="text" class="giftInput" name="reName"> 
+              </div>
+
+              <div class="whiteRoundedBox">  
+                <p>Recipient's phone number (sg)</p>
+              
+                <input type="number" class="giftInput" name="rePhone Number (sg)"> 
+              </div>
+
+                <div class="whiteRoundedBox"> 
+                    <p>Gift Message (optional)</p>
+                    <textarea id="comment" name="Comment (optional, for sending as gift)" rows="5" cols="60" maxlength="200" placeholder="Congratulations and best wishes on your grand opening!&#10;&#10;Love, Mary"></textarea>
+                </div>
               </div>
               <p class="totalPrice"></p>
       
@@ -752,6 +775,27 @@
 
 
     }
+    var sendAsGift = 0;
+    $("#allGiftInputs").hide();
+    function sendAsGiftHideOrUnhide(v){
+      if(v){
+        $("#allGiftInputs").show();
+      }else{
+        $("#allGiftInputs").hide();
+        $(".giftInput").val("");
+        $("#comment").val("");
+      }
+      sendAsGift = v;
+    }
+
+
+
+
+
+
+
+
+
     var regions = {
         regionOne: [01, 02, 03, 04, 05, 06, 07, 08, 14, 15, 16, 09, 10, 11, 12, 13, 17, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 81, 51, 52, 53, 54, 55, 82, 56, 57],
         regionTwo: [58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 77, 78, 75, 76, 79, 80]
@@ -803,6 +847,7 @@
 
 
      var section1InputTextValueReqlength = $('.section1InputText').length;
+     var giftInputReqlength = $('.giftInput').length;
      
       var section3InputTextValueReqlength = $('.section3InputText').length;
       var sect2Or3;
@@ -813,8 +858,12 @@
 
 
       $("#sect1Next").click(function(){
-        section1InputTextValueNoOfBottleReqlength = $('.noOfBottle').length;
+        section1InputTextValueNoOfBottleReqlength = $('.noOfBottle').length; // need to put in this click event as the number of such elememts is dynamic due to presets
         section1InputTextValue = $('.section1InputText').filter(function () {
+        return this.value != '';
+        });
+
+        giftInput = $('.giftInput').filter(function () {
         return this.value != '';
         });
 
@@ -834,7 +883,7 @@
          console.log(section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength);
          console.log(document.getElementById("email").value.indexOf("@") == -1 );
          console.log(totalNoPart2 == 0);
-        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength || document.getElementById("email").value.indexOf("@") == -1 || totalNoPart2 == 0) {
+        if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength || document.getElementById("email").value.indexOf("@") == -1 || totalNoPart2 == 0 || (sendAsGift && giftInput.length != giftInputReqlength)) {
             alert('Please fill out all required fields appropriately.');
             return;
         }
@@ -988,7 +1037,9 @@
                                         'Presets': $("input[name='Presets']").val(), 
                                         'Total Bottles': $("input[name='Total Bottles']").val(), 
                                         'Total Price': $("input[name='Total Price']").val(), 
-                                        'Shipment': $("input[name='Shipment']:checked").val(), 
+                                        'Shipment': $("input[name='Shipment']:checked").val(),
+                                        'Recipient\'s name': $("input[name='reName']").val(), 
+                                        'Recipient\'s phone number (sg)': $("input[name='rePhone Number (sg)']").val(), 
                                         'Comment (optional, for sending as gift)': $("textarea[name='Comment (optional, for sending as gift)']").val(), 
                                         'Pick a date': $("input[name='Pick a date']:checked").val(), 
                                         'Pick a time': $("input[name='Pick a time']:checked").val(), 
