@@ -297,7 +297,7 @@
                   </section>
                 </div>
               <div class="whiteRoundedBox"> 
-                <p>Send as gift?</p>
+                <p>Buying for someone?</p>
                 <input type="radio" name="sendAsGift" value="yes" onchange="sendAsGiftHideOrUnhide(1)">
                 <label>Yes</label><br>
                 
@@ -320,8 +320,12 @@
 
                 <div class="whiteRoundedBox"> 
                     <p>Gift Message (optional)</p>
-                    <textarea id="comment" name="Comment (optional, for sending as gift)" rows="5" cols="60" maxlength="200" placeholder="Congratulations and best wishes on your grand opening!&#10;&#10;Love, Mary"></textarea>
+                    <textarea id="giftMessage" name="Gift Message (optional)" rows="5" cols="60" maxlength="200" placeholder="Congratulations and best wishes on your grand opening!&#10;&#10;Love, Mary"></textarea>
                 </div>
+              </div>
+              <div class="whiteRoundedBox"> 
+                <p>Comment/Request (optional)</p>
+                <textarea id="comment" name="Comment/Request (optional)" rows="5" cols="60" maxlength="200"></textarea>
               </div>
               <p class="totalPrice"></p>
       
@@ -400,9 +404,16 @@
                 <p class="totalPrice" style="margin-bottom: 0px;"></p>
               </div>
 
+              <div class="whiteRoundedBox" id="reviewGroup"> 
+                <p>Facebook Review</p>
+                <p>Make a review on our <a href="https://www.facebook.com/dancingrainsg/reviews/?ref=page_internal" target="_blank">facebook page</a> and upload a screenshot of the review here.(optional) <br/>  <br/> Please pay the total price shown in the order summary above, delivery charges will be refunded after verification. </p>
+               
+                <p></p>
+                <input type="file" name="Facebook Review" id="myFile2">
+            </div>
               <div class="whiteRoundedBox"> 
                   <p>(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID</p>
-                  <p>𝐏𝐥𝐞𝐚𝐬𝐞 𝐬𝐞𝐧𝐝 𝐭𝐡𝐞 𝐩𝐚𝐲𝐦𝐞𝐧𝐭 𝐭𝐨 𝟗𝟔𝟏𝟕𝟏𝟏𝟏𝟗 (𝐏𝐚𝐲𝐋𝐚𝐡!/𝐏𝐚𝐲𝐍𝐨𝐰) 𝐚𝐧𝐝 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧 𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃" 𝐡𝐞𝐫𝐞.</p>
+                  <p>𝐏𝐥𝐞𝐚𝐬𝐞 𝐬𝐞𝐧𝐝 𝐭𝐡𝐞 𝐩𝐚𝐲𝐦𝐞𝐧𝐭 𝐭𝐨 𝟗𝟔𝟏𝟕𝟏𝟏𝟏𝟗 (𝐏𝐚𝐲𝐋𝐚𝐡!/𝐏𝐚𝐲𝐍𝐨𝐰) 𝐚𝐧𝐝 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃" 𝐡𝐞𝐫𝐞.</p>
                   <img  src="https://drive.google.com/uc?export=download&id=1LIzSp6inArSpWziktjTNXpSwvyr0tk9b">
                   <p></p>
                   <input type="file" name="(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID" id="myFile">
@@ -463,7 +474,24 @@
 
 
 
+    document.getElementById("myFile2").addEventListener('change', function(){
+         var ext = this.value.match(/\.[^\.]+$/)[0]; // \. is for escaping and interpreting as .
 
+         switch(ext){
+           case ".png":
+           case ".jpg":
+           case ".jpeg":
+           case ".PNG":
+           case ".JPG":
+           case ".JPEG":
+            break;
+          default:
+            alert('Please upload an image.');
+            this.value = "";
+
+
+         }
+      })
 
       document.getElementById("myFile").addEventListener('change', function(){
          var ext = this.value.match(/\.[^\.]+$/)[0]; // \. is for escaping and interpreting as .
@@ -514,6 +542,7 @@
     var separateAndPresetsArray = [];
     var presetTextArray = [];
     var totalNoPart2 = 0;
+    var totalPrice = 0;
     function calculatePricePart1(v, n){
       if(v ==""){
           v = 0;
@@ -553,7 +582,7 @@
         }
         
       }
-      var totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
       $("input[name='Total Price']").val(totalPrice);
       if($("#separate").length){
         $("#separate").remove();
@@ -580,7 +609,7 @@
       }
 
       $("input[name='Total Bottles']").val(totalNoPart2);
-      var totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
       $("input[name='Total Price']").val(totalPrice);
       // document.getElementById("totalPrice").innerHTML =  "Total Price: $" + totalPrice.toFixed(2);
       if($("#separate").length){
@@ -823,7 +852,7 @@
       }else{
         $("#allGiftInputs").hide();
         $(".giftInput").val("");
-        $("#comment").val("");
+        $("#giftMessage").val("");
       }
       sendAsGift = v;
     }
@@ -979,9 +1008,17 @@
             alert('Please fill out all required fields appropriately.');
             return;
           } 
+
+          if(totalPrice < 75 && shipping == 8){
+            $("#reviewGroup").show();
+          }else{
+            $("#reviewGroup").hide();
+          }
           $("#section3").hide();
           $("#section4").show();
           sect2Or3 = 3;
+
+
       })
 
       $("#sect4Back").click(function(){
@@ -1052,20 +1089,42 @@
                   $('#submitBtn').prop('disabled', false);
                   return;
                 }
+               
+               
                 
                 $('#processing').text("Processing, please wait...");
+                var file1 = {
+                  name:'empty',
+                  type:'empty'
+                }
+                var faceBookBlob = '';
+               
+
+                if(form['Facebook Review'].value != ''){
+
+                  file1 = form['Facebook Review'].files[0];
+                  var fr1 = new FileReader();
+                  fr1.readAsArrayBuffer(file1);
+                  fr1.onload = (f) =>{
+                    faceBookBlob = [...new Int8Array(f.target.result)];
+                  }
+                }
+
                 const file = form['(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID'].files[0];
                 const fr = new FileReader();
                 fr.readAsArrayBuffer(file);
                 fr.onload = (f) => {
-                  const url = "https://script.google.com/macros/s/AKfycbwA11fBwcja6vOmDFnAMj3c0e2ZWJQV959GR2aAguaWwPoiwCsN_tpff7Kvj6qMkBSrlw/exec"; 
+                  const url = "https://script.google.com/macros/s/AKfycbw_POVY3lk4sJTLyGj0PBbGfX2F3JAcb3jjkzo867dqQmKJtCyxieMUUx0tqvzCeW7gLQ/exec"; 
                   const qs = new URLSearchParams({
                     filename: file.name,
                     mimeType: file.type,
+                    filename1: file1.name,
+                    mimeType1: file1.type,
                   });
                   fetch(`${url}?${qs}`, {
                     method: "POST",
                     body: JSON.stringify({'(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID': [...new Int8Array(f.target.result)],
+                                        'Facebook Review': faceBookBlob,
                                         'Name': $("input[name='Name']").val(), 
                                         'Phone Number (sg)': $("input[name='Phone Number (sg)']").val(), 
                                         'Email Address': $("input[name='Email Address']").val(), 
@@ -1080,7 +1139,8 @@
                                         'Shipment': $("input[name='Shipment']:checked").val(),
                                         'Recipient\'s name': $("input[name='reName']").val(), 
                                         'Recipient\'s phone number (sg)': $("input[name='rePhone Number (sg)']").val(), 
-                                        'Comment (optional, for sending as gift)': $("textarea[name='Comment (optional, for sending as gift)']").val(), 
+                                        'Gift Message (optional)': $("textarea[name='Gift Message (optional)']").val(),
+                                        'Comment/Request (optional)': $("textarea[name='Comment/Request (optional)']").val(),  
                                         'Pick a date': $("input[name='Pick a date']:checked").val(), 
                                         'Pick a time': $("input[name='Pick a time']:checked").val(), 
                                         'Postal Code': $("input[name='Postal Code']").val(), 
