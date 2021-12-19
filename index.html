@@ -1009,7 +1009,7 @@
             return;
           } 
 
-          if(totalPrice < 75 && shipping == 8){
+          if(totalPrice < 75  && totalPrice >= 25 && shipping == 8){
             $("#reviewGroup").show();
           }else{
             $("#reviewGroup").hide();
