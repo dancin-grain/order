@@ -986,6 +986,11 @@
             alert('Please fill out all required fields appropriately.');
             return;
           } 
+          if(totalPrice < 75  && totalPrice >= 25 && shipping == 8){
+            $("#reviewGroup").show();
+          }else{
+            $("#reviewGroup").hide();
+          }
           $("#section2").hide();
           $("#section4").show();
           sect2Or3 = 2;
