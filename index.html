@@ -188,6 +188,11 @@
     
       margin-right: calc(100% - 530px);
     }
+
+    .whiteRoundedBox.drinksStyle.bs {
+    
+    margin-right: calc(100% - 530px);
+  }
     .whiteRoundedBox.drinksStyle.fb {
     
     margin-right: calc(100% - 530px);
@@ -279,6 +284,12 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                 <p>No. of Chrysanthemum</p>
                 <img class="productPhoto" style="width:208px;" src="https://drive.google.com/uc?export=download&id=17andiOsPirqmdG1gxBMIf5nEKefHBqh3">
                 <input type="number" id="chrysanthemum" class="noOfBottle" oninput="calculatePricePart1(this.value, 5)" name="No. of Chrysanthemum" min="0" value="0"><p class="minus" onclick="minus($('#chrysanthemum'), 5)">-</p><p class="plus" onclick="plus($('#chrysanthemum'), 5)">+</p> 
+              </div><!--
+            
+              --><div class="whiteRoundedBox drinksStyle bs"> 
+                <p>No. of Berry Spooky</p>
+                <img class="productPhoto" style="width:208px;" src="https://drive.google.com/uc?export=download&id=1nXkcS7DaP09UBo-glVjX2yG70-8o77LY">
+                <input type="number" id="berrySpooky" class="noOfBottle" oninput="calculatePricePart1(this.value, 6)" name="No. of Berry Spooky" min="0" value="0"><p class="minus" onclick="minus($('#berrySpooky'), 6)">-</p><p class="plus" onclick="plus($('#berrySpooky'), 6)">+</p> 
             </div>
             <input type="hidden" name="Presets">
             <input type="hidden"  name="Total Bottles">
@@ -295,6 +306,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set1Part2" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
@@ -303,6 +315,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set1Part3" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
@@ -311,6 +324,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl" selected="selected">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set1Part4" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
@@ -319,6 +333,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb" selected="selected">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <p>No. of Set A</p>
@@ -593,6 +608,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
     var roseLycheeNo = 0;
     var floralBlendNo = 0;   
     var chrysanthemumNo = 0; 
+    var berrySpookyNo = 0; 
     var shipping = 0;
     var separateAndPresetsArray = [];
     var presetTextArray = [];
@@ -627,10 +643,13 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
         case 5:
           chrysanthemumNo = parseInt(v);   
           break;
+        case 6:
+          berrySpookyNo = parseInt(v);   
+          break;
       }
-      var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
+      var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo + berrySpookyNo;
       totalNoPart2 = 0;
-      separateAndPresetsArray[0] = totalNo;
+      separateAndPresetsArray[0] = totalNo; // index 0 to store the separate total
       for(i = 0;i<separateAndPresetsArray.length;i++){
         if(separateAndPresetsArray[i] !== undefined){
           totalNoPart2 += separateAndPresetsArray[i];
@@ -642,7 +661,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
       if($("#separate").length){
         $("#separate").remove();
       }
-      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul></div>")
+      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li><li>" + "Berry Spooky x " + berrySpookyNo + "</li></ul></div>")
       $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
 
     }
@@ -654,7 +673,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
       }else{
         shipping = 8;
       }
-       var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo;
+       var totalNo = berryNiceNo + passionFruitNo + roseLycheeNo + floralBlendNo + chrysanthemumNo + berrySpookyNo;
        separateAndPresetsArray[0] = totalNo;
         for(i = 0;i<separateAndPresetsArray.length;i++){
           if(separateAndPresetsArray[i] !== undefined){
@@ -670,7 +689,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
       if($("#separate").length){
         $("#separate").remove();
       }
-      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li></ul></div>")
+      $('#orderSummary').prepend("<div id='separate'><b>Order Summary</b><br/><ul><li>Berry Nice x " + berryNiceNo + "</li><li>Passion Fruit x " + passionFruitNo + "</li><li>Rose Lychee x " + roseLycheeNo + "</li><li>" + "Floral Blend x " + floralBlendNo + "</li><li>" + "Chrysanthemum x " + chrysanthemumNo + "</li><li>" + "Berry Spooky x " + berrySpookyNo + "</li></ul></div>")
        $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
     }
 
@@ -690,6 +709,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
 
         for(i=1;i<presetTextArray.length;i++){
         console.log("#set" + i + "OrderSummary");
+        // sometimes a user might add set but never use it (value is at 0 by default) but use another succeeding set, then the preceeding set will be undefined due to the code line 737 that adds preset text, there might be undefined elements in between 
         if(presetTextArray[i] !== undefined){
 
           presetTexts += presetTextArray[i];
@@ -713,6 +733,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
       
       
 
+      // this is to determine the preset text in order summary
       for(i=1; i<=set.substring(3, set.length);i++){
         if(i % 27 == 0){
           boughtSetAlphabet += 'A';
@@ -742,6 +763,9 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
           case 'c':
             presetTextArray[set.substring(3, set.length)] += 'Chrysanthemum <br/>';
             break;
+          case 'bs':
+            presetTextArray[set.substring(3, set.length)] += 'Berry Spooky <br/>';
+            break;
         }
         
       }
@@ -752,7 +776,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
         console.log("#set" + i + "OrderSummary");
         if(presetTextArray[i] !== undefined){
 
-          // refresh all the set texts
+          // refresh all the set texts if the user make changes to the presets
           if($("#set" + i + "OrderSummary").length){
             $("#set" + i + "OrderSummary").remove();
           }
@@ -760,6 +784,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
           presetTexts += presetTextArray[i];
         }
       }
+      // values to be saved in goole sheets database
       presetTexts = presetTexts.replace(/<br\/>/g, "\n");
       presetTexts = presetTexts.replace(/<\/div>/g, "");
       presetTexts = presetTexts.replace(/<div id="set\d+OrderSummary">/g, "");
@@ -812,6 +837,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set` + setCounter + `Part2" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
@@ -820,6 +846,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set` + setCounter + `Part3" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
@@ -828,6 +855,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl" selected="selected">Rose Lychee</option>
                   <option value="fb">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <select name="set` + setCounter + `Part4" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
@@ -836,6 +864,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="rl">Rose Lychee</option>
                   <option value="fb" selected="selected">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
                 <p>No. of Set ` + setAlphabet.replace(/./g, String.fromCharCode(64 + setCounterV2)) + `</p>
@@ -1007,6 +1036,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
          console.log(section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength);
          console.log(document.getElementById("email").value.indexOf("@") == -1 );
          console.log(totalNoPart2 == 0);
+         //                                                     if all section 1 input text have value                             if the bottles text fields have valid values
         if ($("input[name='Shipment']:checked").length == 0 || section1InputTextValue.length != section1InputTextValueReqlength || section1InputTextValueNoOfBottle.length != section1InputTextValueNoOfBottleReqlength || document.getElementById("email").value.indexOf("@") == -1 || totalNoPart2 == 0 || (sendAsGift && giftInput.length != giftInputReqlength)) {
             alert('Please fill out all required fields appropriately.');
             return;
@@ -1166,7 +1196,8 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   var fr1 = new FileReader();
                   fr1.readAsArrayBuffer(file1);
                   fr1.onload = (f) =>{
-                    faceBookBlob = [...new Int8Array(f.target.result)];
+                    // a = [5,2] then b = a is same as b = [...a] , just that the latter is passed by value instead of by reference
+                    faceBookBlob = [...new Int8Array(f.target.result)]; // value of faceBookBlob could be [23, 12, 14, 18, 19 and etc..], instead of facebookBlob u can also choose to directly use new Int8Array(f.target.result)
                   }
                 }
 
@@ -1174,7 +1205,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                 const fr = new FileReader();
                 fr.readAsArrayBuffer(file);
                 fr.onload = (f) => {
-                  const url = "https://script.google.com/macros/s/AKfycbx_qMJHVBVtgWYqFimMuL8QW7WFK7NNi17W5sW8bX_NypPyKGE9AVFHnPL54DwhI1X7/exec"; 
+                  const url = "https://script.google.com/macros/s/AKfycbyj-5A8FqJtNyC4a-f9ClnbRWZ5Auju64se_UIRSjYfXMBlvyet4rQZ3LGcyJotKkY4dA/exec"; 
                   const qs = new URLSearchParams({
                     filename: file.name,
                     mimeType: file.type,
@@ -1193,6 +1224,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                                         'No. of Rose Lychee': $("input[name='No. of Rose Lychee']").val(), 
                                         'No. of Floral Blend': $("input[name='No. of Floral Blend']").val(),
                                         'No. of Chrysanthemum': $("input[name='No. of Chrysanthemum']").val(),
+                                        'No. of Berry Spooky': $("input[name='No. of Berry Spooky']").val(),
                                         'Presets': $("input[name='Presets']").val(), 
                                         'Total Bottles': $("input[name='Total Bottles']").val(), 
                                         'Total Price': $("input[name='Total Price']").val(), 
