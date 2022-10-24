@@ -1079,7 +1079,9 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
             $('input[name="Unit Number"]').val(''); 
 
         }
-        $('#qrcode').attr("src","https://sgqr.fullstacksys.com/paynow?mobile=96171119&uen=&editable=0&amount=" + $('.totalPrice').html().substring($('.totalPrice').html().indexOf("$") + 1, $('.totalPrice').html().length) + "&expiry=" + encodeURIComponent(dateToYMD(today.setDate(today.getDate() + 1))) + "&ref_id=&company=");
+        today1 = new Date();
+        today1.setDate(today1.getDate() + 1);
+        $('#qrcode').attr("src","https://sgqr.fullstacksys.com/paynow?mobile=96171119&uen=&editable=0&amount=" + $('.totalPrice').html().substring($('.totalPrice').html().indexOf("$") + 1, $('.totalPrice').html().length) + "&expiry=" + encodeURIComponent(dateToYMD(today1)) + "&ref_id=&company=");
 
 
       })
