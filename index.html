@@ -507,6 +507,11 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
     margin: 0px auto;
 ">
 </div>
+<p id="qrcodeText" style="
+    margin: -1px;
+    text-align: center;
+    color: #771c79;
+"></p>
 <p style="
 margin-top: 23px;
 ">𝟐.𝐔𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃" 𝐡𝐞𝐫𝐞.</p>  
@@ -1085,7 +1090,7 @@ margin-top: 23px;
         today1 = new Date();
         today1.setDate(today1.getDate() + 1);
         $('#qrcode').attr("src","https://sgqr.fullstacksys.com/paynow?mobile=96171119&uen=&editable=0&amount=" + $('.totalPrice').html().substring($('.totalPrice').html().indexOf("$") + 1, $('.totalPrice').html().length) + "&expiry=" + encodeURIComponent(dateToYMD(today1)) + "&ref_id=&company=");
-
+        $('#qrcodeText').html('Valid till ' + today1.toLocaleDateString("en-US", options))
 
       })
 
