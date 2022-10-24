@@ -193,6 +193,9 @@
         display: block;
         width: 100%;
       }
+
+      
+
    
       .whiteRoundedBox.drinksStyle.pf {
     
@@ -490,12 +493,13 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                
                 <p></p>
                 <input type="file" name="Facebook Review" id="myFile2">
-            </div>
+            
               <div class="whiteRoundedBox"> 
                   <p>(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID</p>
                   <p>𝟏.𝐒𝐜𝐚𝐧 𝐭𝐡𝐞 𝐟𝐨𝐥𝐥𝐨𝐰𝐢𝐧𝐠 𝐐𝐑 𝐜𝐨𝐝𝐞 𝐮𝐬𝐢𝐧𝐠 𝐏𝐚𝐲𝐋𝐚𝐡!/𝐏𝐚𝐲𝐍𝐨𝐰 𝐭𝐨 𝐬𝐞𝐧𝐝 𝐭𝐡𝐞 𝐩𝐚𝐲𝐦𝐞𝐧𝐭 𝐭𝐨 𝟗𝟔𝟏𝟕𝟏𝟏𝟏𝟗.</p>
-                  <div style="
-    max-height: 330px;
+                  <div>
+                  <div id="dynamicImageCutOff" style="
+    /* max-height: 300px; */
     overflow: hidden;
     margin: 0px auto;
 ">
@@ -507,6 +511,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
     margin: 0px auto;
 ">
 </div>
+
 <p id="qrcodeText" style="
     margin: -1px;
     text-align: center;
@@ -1094,7 +1099,11 @@ margin-top: 23px;
         $('#qrcodeText').html('Valid till ' + today1.toLocaleDateString("en-US", options3) + ", 23:59")
 
       })
-
+      
+      $(window).resize(function(){
+        $('dynamicImageCutoff').attr("max-height", 330/356 * $("#qrcode").height());
+      });
+      
       function dateToYMD(date) {
           var d = date.getDate();
           var m = date.getMonth() + 1; //Month from 0 to 11
