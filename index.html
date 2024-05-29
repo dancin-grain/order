@@ -996,6 +996,11 @@ margin-top: 23px;
     function getAddress(e){
       console.log(e);
         if(e.value.length == 6 && !isNaN(e.value)){
+		$("#deliveryDate").text("Loading, please wait...")
+		$("#sect3Next").prop(
+                    "disabled",
+                    true
+                );
           $.ajax({
             url:'https://geocode.xyz/' + e.value +'?region=SG',
             type:'GET',
@@ -1007,10 +1012,16 @@ margin-top: 23px;
                     
                       $("#deliveryDate").text("Please take note of your delivery date: " + new Date(Date.now() + 1000*60*60*24*slackTimeDaysDeliveryReg1[today.toLocaleDateString("en-US", options2).substring(0,3)]).toLocaleDateString("en-US", options) + ", (7pm to 10pm)");
                      
-                    
+                    	$("#sect3Next").prop(
+                    "disabled",
+                    false
+                );
                 }else if(regions.regionTwo.includes(parseInt(e.value.substring(0,2)))){
                       $("#deliveryDate").text("Please take note of your delivery date: " + new Date(Date.now() + 1000*60*60*24*slackTimeDaysDeliveryReg2[today.toLocaleDateString("en-US", options2).substring(0,3)]).toLocaleDateString("en-US", options) + ", (7pm to 10pm)");
-
+			$("#sect3Next").prop(
+                    "disabled",
+                    false
+                );
                 }else{
                   $("#deliveryDate").text("");
                 }
