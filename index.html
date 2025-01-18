@@ -245,7 +245,7 @@
                 <p style="
     color: black;
     font-size: 16px;
-">Disclaimer: $6.90 each, 4 for $25</p><hr style="    margin-top: 30px;
+">Disclaimer: $6.90 each, 6 for $37.50</p><hr style="    margin-top: 30px;
 margin-bottom: 20px;
 border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to enjoy discounts of up to <b class="twentyPcent"">20%</b> off and free delivery! <br/><br/>To subscribe, <a href="https://dancin-grain.github.io/subscription/" target="_blank">click here!</a></p>
               </div>
@@ -349,6 +349,24 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                   <option value="bs">Berry Spooky</option>
                 </select>
                 <br/>
+                <select name="set1Part5" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c"  selected="selected">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
+                </select>
+                <br/>
+                <select name="set1Part6" onchange="calculatePricePart3($('#set1No').val(), 'set1')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                  <option value="bs" selected="selected">Berry Spooky</option>
+                </select>
+                <br/>
                 <p>No. of Set A</p>
                 <input type="number" id="set1No" class="noOfBottle" oninput="calculatePricePart3(this.value, 'set1')" name="No. of Set1" min="0" value="0"><p class="minus" onclick="minusSet($('#set1No'), 'set1')">-</p><p class="plus" onclick="plusSet($('#set1No'), 'set1')">+</p>
                 <br/>
@@ -398,7 +416,7 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
               <div class="whiteRoundedBox">  
                 <p>Recipient's phone number (sg)</p>
               
-                <input type="number" class="giftInput" name="rePhone Number (sg)"> 
+                
               </div>
 
                 <div class="whiteRoundedBox"> 
@@ -407,10 +425,16 @@ border: 1px solid rgb(246, 227, 171);"><p style="margin-top: -5px;">Subscribe to
                 </div>
               </div>
               <div class="whiteRoundedBox"> 
-                <p>Comment/Request (optional, request will be subjected to availability, we will respond to you within the day via email.)</p>
+                <p>Comment/Request (optional, request will be subjected to availability, we will respond to you within the day via WhatsApp.)</p>
                 <textarea id="comment" name="Comment/Request (optional)" rows="5" cols="60" maxlength="200" placeholder="Is it possible for the drinks to be delivered on this sunday 3pm?"></textarea>
               </div>
+              <div class="whiteRoundedBox"> 
+                <p>Coupon Code (Applicable only for Dancin Grain Delivery of 6 to 11 bottles, inclusive.)</p>
+                <input type="text" class="section1InputTextOptional" name="couponCode"> 
+                <b><p id="couponCodeVText"></p></b>
+              </div>
               <p class="totalPrice"></p>
+              <p><b id="waitForCouponCodeV"></b></p>
       
               <button id="sect1Next" type="button">Next</button>
               <p></p>
@@ -637,6 +661,7 @@ margin-top: 23px;
     inputDateAsValue(1, 4);
     inputDateAsValue(2, 5);
 
+    var isCouponApplied = 0
     var berryNiceNo = 0;
     var passionFruitNo = 0;
     var roseLycheeNo = 0;
@@ -690,7 +715,7 @@ margin-top: 23px;
         }
         
       }
-      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/6) * 3.9 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
       $("input[name='Total Price']").val(totalPrice);
       if($("#separate").length){
         $("#separate").remove();
@@ -716,8 +741,17 @@ margin-top: 23px;
         
       }
 
+
+
+
+
+
+      
+
+
+
       $("input[name='Total Bottles']").val(totalNoPart2);
-      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/4) * 2.6 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
+      totalPrice = totalNoPart2 * 6.9 - Math.floor(totalNoPart2/6) * 3.9 + shipping - (totalNoPart2 >= 12 && shipping == 8 ? 8 : 0);
       $("input[name='Total Price']").val(totalPrice);
       // document.getElementById("totalPrice").innerHTML =  "Total Price: $" + totalPrice.toFixed(2);
       if($("#separate").length){
@@ -761,7 +795,7 @@ margin-top: 23px;
         $('.totalPrice').html('');
         return;
       }
-      separateAndPresetsArray[set.substring(3, set.length)] = 4 * v;
+      separateAndPresetsArray[set.substring(3, set.length)] = 6 * v;
       calculatePricePart2(shipping == 0 ? 0 : 1);
       var boughtSetAlphabet = 'A'; // can be any character
       
@@ -778,7 +812,7 @@ margin-top: 23px;
 
 
       presetTextArray[set.substring(3, set.length)] = '<div id="' + set +'OrderSummary">Set ' + boughtSetAlphabet.replace(/./g, String.fromCharCode(64 + ((set.substring(3, set.length) - 1) % 26) + 1))  + ' x ' + v + '<br/><br/>';
-      for(i = 1;i<5;i++){
+      for(i = 1;i<7;i++){
         var setNoPartI = $('select[name="' + set + 'Part' + i + '"]').val();
         
         switch(setNoPartI){
@@ -899,6 +933,24 @@ margin-top: 23px;
                   <option value="fb" selected="selected">Floral Blend</option>
                   <option value="c">Chrysanthemum</option>
                   <option value="bs">Berry Spooky</option>
+                </select>
+                <br/>
+                <select name="set` + setCounter + `Part4" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c" selected="selected">Chrysanthemum</option>
+                  <option value="bs">Berry Spooky</option>
+                </select>
+                <br/>
+                <select name="set` + setCounter + `Part4" onchange="calculatePricePart3($('#set` + setCounter + `No').val(), 'set` + setCounter + `')">
+                  <option value="bn">Berry Nice</option>
+                  <option value="pf">Passion Fruit</option>
+                  <option value="rl">Rose Lychee</option>
+                  <option value="fb">Floral Blend</option>
+                  <option value="c">Chrysanthemum</option>
+                  <option value="bs" selected="selected">Berry Spooky</option>
                 </select>
                 <br/>
                 <p>No. of Set ` + setAlphabet.replace(/./g, String.fromCharCode(64 + setCounterV2)) + `</p>
@@ -1036,7 +1088,17 @@ margin-top: 23px;
         }
       }
 
-     
+      function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function pauseScriptForCCText() { //cc is coupon code
+          console.log('Before delay');
+          await sleep(1500); // Waits for 1.5 seconds
+          console.log('After delay');
+      }
+
+      pauseScriptForCCText();
       
 
     $(document).ready(function() {
@@ -1056,6 +1118,9 @@ margin-top: 23px;
 
 
       $("#sect1Next").click(function(){
+       
+       
+
         section1InputTextValueNoOfBottleReqlength = $('.noOfBottle').length; // need to put in this click event as the number of such elememts is dynamic due to presets
         section1InputTextValue = $('.section1InputText').filter(function () {
         return this.value != '';
@@ -1089,6 +1154,84 @@ margin-top: 23px;
 
 
 
+
+
+
+
+
+
+         // for double checking to ensure correct pricing (start)
+       var dcSeparateBottles = (isNaN(parseInt($("input[name='No. of Berry Nice']").val(), 10)) ? 0 : parseInt($("input[name='No. of Berry Nice']").val(), 10)) + 
+       (isNaN(parseInt($("input[name='No. of Passion Fruit']").val(), 10)) ? 0 : parseInt($("input[name='No. of Passion Fruit']").val(), 10)) + 
+       (isNaN(parseInt($("input[name='No. of Rose Lychee']").val(), 10)) ? 0 : parseInt($("input[name='No. of Rose Lychee']").val(), 10)) + 
+       (isNaN(parseInt($("input[name='No. of Floral Blend']").val(), 10)) ? 0 : parseInt($("input[name='No. of Floral Blend']").val(), 10)) + 
+       (isNaN(parseInt($("input[name='No. of Chrysanthemum']").val(), 10)) ? 0 : parseInt($("input[name='No. of Chrysanthemum']").val(), 10)) + 
+       (isNaN(parseInt($("input[name='No. of Berry Spooky']").val(), 10)) ? 0 : parseInt($("input[name='No. of Berry Spooky']").val(), 10))
+        var dcPresetsBottles = 0;
+        
+        
+        var matchesForPresets = $("input[name='Presets']").val().match(/\b\d+\b/g);
+
+        if(matchesForPresets){
+          dcPresetsBottles = matchesForPresets.reduce((sum, num) => sum + parseInt(num, 10), 0) * 6 // due to the arrow, without the curly braces that indicates the code inside the anon function, the return keyword is implicit
+        
+
+        }else{
+          dcPresetsBottles = 0;
+        }
+
+        // Convert matches to numbers and sum them up
+        var dcTotalBottles = dcSeparateBottles + dcPresetsBottles; 
+
+        var dcTotalPriceWithoutCoupon = Math.floor(dcTotalBottles / 6) * 37.5 + (dcTotalBottles % 6) * 6.9 + (($("input[name='Shipment']:checked").val() == "Dancin Grain Delivery" && dcTotalBottles >= 12) || $("input[name='Shipment']:checked").val() != "Dancin Grain Delivery" ? 0 : 8)
+
+        $("input[name='Total Bottles']").val(dcTotalBottles);
+
+        $("input[name='Total Price']").val(dcTotalPriceWithoutCoupon);
+        $('.totalPrice').html("Total Price: $" + dcTotalPriceWithoutCoupon.toFixed(2));
+        // for double checking to ensure correct pricing (end)
+
+
+        // $('.totalPrice').html("Total Price: $" + totalPrice.toFixed(2));
+        
+   
+        // check if it is required to send coupon code to server for validation (start)
+        if($("input[name='couponCode']").val() != '' && dcTotalBottles >= 6 && $("input[name='Shipment']:checked").val() == "Dancin Grain Delivery" && dcTotalBottles < 12){
+
+        $('#waitForCouponCodeV').text('Loading, please wait...');
+          $('#sect1Next').prop('disabled', true);
+
+        // check discount code
+
+        const url = 'https://script.google.com/macros/s/AKfycbxewZMCkCJFUtuqv_YPjW944G1N5woYsvN8BE_wbK43xpjFfXkovxibuuUnSVMISeA/exec';
+
+
+        // Make the fetch request with only the coupon code
+        
+        try{
+        
+        const response = fetch(url, { 
+          method: 'POST', 
+          body: JSON.stringify({ 'couponCode' : $("input[name='couponCode']").val() }), // Send only the couponCode 
+        }).then((res) => {  if (!res.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+      $('#couponCodeVText').text('Server is currently down for maintenance. Please try again later.');
+    }
+    ; // Parse JSON response from doPost
+          return res.json()
+       //   $('#couponCodeVText').text(res.json().result) ;
+                })
+                .then((data) => { // needs another then, i cant use res.json().r directly from the first then
+    console.log(data); // Logs the actual JSON data
+    $('#couponCodeVText').text(data.r); // Update the UI with the result
+    $('#waitForCouponCodeV').text('');
+    console.log(data.r)
+    if(data.r == 'Coupon code applied successfully!'){
+        dcTotalPriceWithoutCoupon -= 8;
+        $("input[name='Total Price']").val(dcTotalPriceWithoutCoupon);
+        $('.totalPrice').html("Total Price: $" + dcTotalPriceWithoutCoupon.toFixed(2));
+
+        setTimeout(() => {
         $("#section1").hide();
         if($("input[name='Shipment']:checked").val() == "Dancin Grain Delivery"){
             $("#section3").show();
@@ -1101,6 +1244,84 @@ margin-top: 23px;
             $('input[name="Unit Number"]').val(''); 
 
         }
+
+        $('#sect1Next').prop('disabled', false);
+
+      }   ,3000);
+    }else{
+
+      $('#sect1Next').prop('disabled', false);
+      return
+    }
+    console.log("test123")
+ 
+
+    
+
+
+
+
+
+
+
+  }).catch(console.log); 
+
+                
+      }catch(e){
+
+        console.log(e)
+      }
+
+
+      }else if($("input[name='couponCode']").val() == ''){
+        $('#couponCodeVText').text('')
+
+        $("#section1").hide();
+        if($("input[name='Shipment']:checked").val() == "Dancin Grain Delivery"){
+            $("#section3").show();
+            $('input[name="Pick a time"]').prop('checked', false); 
+            $('input[name="Pick a date"]').prop('checked', false); 
+        }else{
+            $("#section2").show();
+            $('input[name="Postal Code"]').val(''); 
+            $('input[name="Address"]').val(''); 
+            $('input[name="Unit Number"]').val(''); 
+
+        }
+      
+
+      }else if($("input[name='couponCode']").val() != '' && dcTotalBottles >= 12){
+
+        $('#couponCodeVText').text('Coupon code not neccessary as total bottles are at least 12.')
+
+        $("input[name='couponCode']").val("");
+
+        
+
+      }else{
+       
+
+         $('#couponCodeVText').text('Coupon code cannot be applied.')
+
+        
+
+      }
+
+      // check if it is required to send coupon code to server for validation (end)
+
+
+
+
+
+
+
+      
+
+
+
+
+
+        
         var options3 = {year: 'numeric', month: 'short', day: 'numeric' };
         today1 = new Date();
         today1.setDate(today1.getDate() + 1);
@@ -1233,8 +1454,14 @@ margin-top: 23px;
 
 
           <script>
+
+
+
               const form = document.forms['google-sheet'];
+              
               form.addEventListener("submit", (e) => {
+
+                var extraAlertText = '';
                 e.preventDefault();
                
 
@@ -1242,9 +1469,11 @@ margin-top: 23px;
                   return;
                 }
                 $('#submitBtn').prop('disabled', true);
+                $("#sect4Back").prop('disabled', true);
                 if(form['(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID'].value == ''){
                   alert('𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐩𝐥𝐨𝐚𝐝 𝐚 𝐬𝐜𝐫𝐞𝐞𝐧 𝐬𝐡𝐨𝐭 𝐨𝐟 𝐭𝐡𝐞 "𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐑𝐞𝐟. 𝐍𝐨./𝐆𝐨𝐨𝐠𝐥𝐞 𝐓𝐫𝐚𝐧𝐬𝐚𝐜𝐭𝐢𝐨𝐧 𝐈𝐃"')
                   $('#submitBtn').prop('disabled', false);
+                  $("#sect4Back").prop('disabled', false);
                   return;
                 }
                
@@ -1270,6 +1499,7 @@ margin-top: 23px;
                 }
 
                 const file = form['(PayLah!/PayNow) Transaction Ref. No./Google Transaction ID'].files[0];
+               
                 const fr = new FileReader();
                 fr.readAsArrayBuffer(file);
                 fr.onload = (f) => {
@@ -1308,8 +1538,70 @@ margin-top: 23px;
                                         'Unit Number': $("input[name='Unit Number']").val(),
                                         'Delivery Date': $("#deliveryDate").text().substring(40, $("#deliveryDate").text().length - 15) })
                   })
-                    .then((res) => {alert('Thank you for your order, We have sent you an email.');
-                    location.reload();})
+                    .then((res) => {
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      const url2 = 'https://script.google.com/macros/s/AKfycbxewZMCkCJFUtuqv_YPjW944G1N5woYsvN8BE_wbK43xpjFfXkovxibuuUnSVMISeA/exec';
+
+
+        // Make the fetch request with only the coupon code
+        
+        try{
+            
+            const response2 = fetch(url2, {  // code below the fetch then catch block will run concurrent, so location reload should be within the then block 
+              method: 'POST', 
+              body: JSON.stringify({ 'couponCode' : $("input[name='couponCode']").val(), 'vOrR' : 'redemption' }), // Send only the couponCode and value for redemption
+            }).then((res) => {  if (!res.ok) {
+          throw new Error("Network response was not ok " + response2.statusText);
+          alert('Server is currently down for maintenance. Please try again later.');
+          location.reload();
+        }
+        ; // Parse JSON response from doPost
+              return res.json()
+          //   $('#couponCodeVText').text(res.json().result) ;
+                    })
+                    .then((data) => { // needs another then, i cant use res.json().r directly from the first then
+        console.log(data); // Logs the actual JSON data
+        $('#couponCodeVText').text(data.r); // Update the UI with the result
+        if(data.r == 'Coupon code applied successfully!'){
+            extraAlertText = "Coupon code 'CNY2025FD' redeemed successfully! "
+            console.log(extraAlertText + 'ppp');
+
+            alert(extraAlertText + 'Thank you for your order, we have sent you an email.');
+                    location.reload();
+        }else{
+
+          alert('Thank you for your order, we have sent you an email.');
+                    location.reload();
+        }
+
+
+
+
+
+
+
+      }).catch(console.log); 
+
+                    
+          }catch(e){
+
+            console.log(e)
+          }
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      })
                     .then(console.log)
                     .catch(console.log);
                 };
